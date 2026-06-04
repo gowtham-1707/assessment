@@ -1,0 +1,22 @@
+[
+  {
+    "id": "q_001",
+    "question": "What is the capital of France?",
+    "answer": "Paris."
+  },
+  {
+    "id": "q_002",
+    "question": "How do users reset their passwords?",
+    "answer": "Users reset passwords from Settings Security."
+  },
+  {
+    "id": "q_003",
+    "question": "What is the capital of France?",
+    "answer": "Paris."
+  },
+  {
+    "id": "q_004",
+    "question": "",
+    "answer": "N/A"
+  }
+]
