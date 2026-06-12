@@ -2,7 +2,6 @@
 
 This project implements a small reusable Python module for evaluating the quality of a question-answering dataset.
 
-I selected trust-focused metrics because Q&A data is often used to train or evaluate AI assistants. In that setting, the biggest risks are not only missing fields or duplicates. The more serious risks are unsupported answers, hallucinated claims, biased responses, privacy leaks, toxic language, and inconsistent answers for similar questions.
 
 ## Final Metrics Selected
 
@@ -108,13 +107,40 @@ The output is a JSON report with:
 From the project folder:
 
 ```powershell
-python test_qa_quality_metrics.py
+python -m unittest -v test_qa_quality_metrics.py
 ```
 
 Expected result:
 
 ```text
-Ran 25 tests
+test_biased_group_statement_fails (test_qa_quality_metrics.FairnessBiasTest.test_biased_group_statement_fails) ... ok
+test_empty_dataset_passes (test_qa_quality_metrics.FairnessBiasTest.test_empty_dataset_passes) ... ok
+test_neutral_group_statement_passes (test_qa_quality_metrics.FairnessBiasTest.test_neutral_group_statement_passes) ... ok
+test_empty_dataset_passes (test_qa_quality_metrics.FaithfulnessTest.test_empty_dataset_passes) ... ok
+test_missing_context_fails (test_qa_quality_metrics.FaithfulnessTest.test_missing_context_fails) ... ok
+test_supported_answer_passes (test_qa_quality_metrics.FaithfulnessTest.test_supported_answer_passes) ... ok
+test_unsupported_answer_terms_fail (test_qa_quality_metrics.FaithfulnessTest.test_unsupported_answer_terms_fail) ... ok
+test_answer_with_context_overlap_passes (test_qa_quality_metrics.GroundednessTest.test_answer_with_context_overlap_passes) ... ok
+test_answer_without_grounding_terms_fails (test_qa_quality_metrics.GroundednessTest.test_answer_without_grounding_terms_fails) ... ok
+test_missing_context_fails_groundedness (test_qa_quality_metrics.GroundednessTest.test_missing_context_fails_groundedness) ... ok
+test_supported_numeric_claim_passes (test_qa_quality_metrics.HallucinationRiskTest.test_supported_numeric_claim_passes) ... ok
+test_unsupported_absolute_claim_fails (test_qa_quality_metrics.HallucinationRiskTest.test_unsupported_absolute_claim_fails) ... ok
+test_unsupported_number_fails (test_qa_quality_metrics.HallucinationRiskTest.test_unsupported_number_fails) ... ok
+test_api_key_is_detected (test_qa_quality_metrics.PrivacyLeakageTest.test_api_key_is_detected) ... ok
+test_clean_text_passes (test_qa_quality_metrics.PrivacyLeakageTest.test_clean_text_passes) ... ok
+test_email_is_detected (test_qa_quality_metrics.PrivacyLeakageTest.test_email_is_detected) ... ok
+test_phone_is_detected (test_qa_quality_metrics.PrivacyLeakageTest.test_phone_is_detected) ... ok
+test_report_contains_selected_metrics (test_qa_quality_metrics.QualityReportTest.test_report_contains_selected_metrics) ... ok
+test_report_dict_is_json_friendly (test_qa_quality_metrics.QualityReportTest.test_report_dict_is_json_friendly) ... ok
+test_conflicting_answers_for_same_question_fail (test_qa_quality_metrics.RobustnessConsistencyTest.test_conflicting_answers_for_same_question_fail) ... ok
+test_consistent_repeated_questions_pass (test_qa_quality_metrics.RobustnessConsistencyTest.test_consistent_repeated_questions_pass) ... ok
+test_single_question_has_no_robustness_group (test_qa_quality_metrics.RobustnessConsistencyTest.test_single_question_has_no_robustness_group) ... ok
+test_respectful_answer_passes (test_qa_quality_metrics.ToxicityTest.test_respectful_answer_passes) ... ok
+test_threatening_word_fails (test_qa_quality_metrics.ToxicityTest.test_threatening_word_fails) ... ok
+test_toxic_word_fails (test_qa_quality_metrics.ToxicityTest.test_toxic_word_fails) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 0.013s
 
 OK
 ```

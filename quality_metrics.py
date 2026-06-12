@@ -104,7 +104,6 @@ _UNSUPPORTED_CLAIM_MARKERS = {
 
 @dataclass(frozen=True)
 class QualityConfig:
-    """Configuration for trust-oriented Q&A quality metrics."""
 
     required_fields: tuple[str, ...] = ("id", "question", "answer")
     evidence_fields: tuple[str, ...] = ("context", "source", "reference")
@@ -160,7 +159,7 @@ def compute_faithfulness(
     qa_pairs: Iterable[QARecord],
     config: QualityConfig | None = None,
 ) -> MetricResult:
-    """Check whether answer content is supported by the provided evidence text."""
+    
     config = config or QualityConfig()
     records = list(qa_pairs)
     failed: list[str] = []
@@ -197,7 +196,6 @@ def compute_groundedness(
     qa_pairs: Iterable[QARecord],
     config: QualityConfig | None = None,
 ) -> MetricResult:
-    """Check whether each answer has at least minimal grounding in a source/context."""
     config = config or QualityConfig()
     records = list(qa_pairs)
     failed: list[str] = []
@@ -223,7 +221,7 @@ def compute_hallucination_risk(
     qa_pairs: Iterable[QARecord],
     config: QualityConfig | None = None,
 ) -> MetricResult:
-    """Flag answer claims that look unsupported by evidence."""
+    
     config = config or QualityConfig()
     records = list(qa_pairs)
     failed: list[str] = []
@@ -258,7 +256,7 @@ def compute_fairness_bias(
     qa_pairs: Iterable[QARecord],
     config: QualityConfig | None = None,
 ) -> MetricResult:
-    """Flag potentially biased statements about protected groups."""
+    
     _ = config
     records = list(qa_pairs)
     failed: list[str] = []
@@ -284,7 +282,7 @@ def compute_robustness_consistency(
     qa_pairs: Iterable[QARecord],
     config: QualityConfig | None = None,
 ) -> MetricResult:
-    """Check whether similar or duplicate prompts have consistent answers."""
+    
     config = config or QualityConfig()
     records = list(qa_pairs)
     question_groups: dict[str, list[tuple[str, str]]] = defaultdict(list)
@@ -319,7 +317,7 @@ def compute_privacy_leakage(
     qa_pairs: Iterable[QARecord],
     config: QualityConfig | None = None,
 ) -> MetricResult:
-    """Detect obvious private data or secret leakage in questions and answers."""
+    
     _ = config
     records = list(qa_pairs)
     failed: list[str] = []
@@ -348,7 +346,7 @@ def compute_toxicity(
     qa_pairs: Iterable[QARecord],
     config: QualityConfig | None = None,
 ) -> MetricResult:
-    """Flag obviously toxic, abusive, or threatening language."""
+    
     _ = config
     records = list(qa_pairs)
     failed: list[str] = []
@@ -369,7 +367,7 @@ def compute_quality_report(
     qa_pairs: Iterable[QARecord],
     config: QualityConfig | None = None,
 ) -> QualityReport:
-    """Run all selected AI trust metrics and return a combined report."""
+    
     config = config or QualityConfig()
     records = list(qa_pairs)
     metric_functions = [
